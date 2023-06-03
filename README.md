@@ -1,5 +1,13 @@
-# caldera-makejail
-MITRE Caldera makejail is a [AppJail](https://github.com/DtxdF/AppJail) template [AppJail-makejail](https://github.com/AppJail-makejails) used by deploy a testing [MITRE Caldera](https://caldera.mitre.org/)) a scalable, automated adversary emulation platform . The principal goals are helps us to fast way install, configure and run MITRE Caldera into a FreeBSD jail. It can be helpful to easily automate adversary emulation, assist manual red-teams, and automate incident response. 
+# MITRE Caldera
+
+MITRE Caldera is a cyber security platform designed to easily automate adversary emulation, assist manual red-teams, and automate incident response. It is built on the MITRE ATT&CK™ framework and is an active research project at MITRE.
+
+https://caldera.mitre.org/
+
+![image](https://github.com/AppJail-makejails/caldera/assets/11150989/cc74192f-a5e6-4cf7-bb67-942b9ccb6f40)
+
+# Goals
+The principal goal of this Makejail is to help us install, configure and run MITRE Caldera into a FreeBSD jail container.
 
 ![image](https://github.com/alonsobsd/caldera-makejail/assets/11150989/2e2a3fc7-58af-4728-8cea-fb314d3f83f6)
 
@@ -30,12 +38,6 @@ rdr-anchor section is necessary for use dynamic redirect from jails
 ```sh
 # sysrc gateway_enable="YES"
 # sysctl net.inet.ip.forwarding=1
-```
-#### Bootstrap a FreeBSD version
-Before you can begin creating containers, AppJail needs fetch and extract components for create jails. If you are creating FreeBSD jails it must be a version equal or lesser than your host version. In this example we will create a 13.2-RELEASE bootstrap
-
-```sh
-# appjail fetch
 ```
 #### Create a virtualnet
 Create a virtualnet for add MITRE Caldera jail from caldera-makejail. Otherwise you can use your own virtualnet if you created it previously
