@@ -14,7 +14,7 @@ The principal goal of this Makejail is to help us install, configure and run MIT
 ![image](https://github.com/alonsobsd/caldera-makejail/assets/11150989/a1471e83-53bf-4fad-9802-b0864a4cc9d4)
 
 ## Requirements
-Before you can install MITRE Caldera using this template you need some initial configurations
+Before you can install MITRE Caldera using this Makejail you need some initial configurations
 
 #### Enable Packet filter
 We need add somes lines to /etc/rc.conf
