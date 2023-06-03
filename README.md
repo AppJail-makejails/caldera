@@ -34,7 +34,7 @@ EOF
 ```
 rdr-anchor section is necessary for use dynamic redirect from jails
 
-### Enable forwarding
+#### Enable forwarding
 ```sh
 # sysrc gateway_enable="YES"
 # sysctl net.inet.ip.forwarding=1
@@ -55,7 +55,7 @@ pass out quick on caldera-net inet proto { tcp udp } from 10.0.0.2 to any
 Create a container named caldera with a private IP address 10.0.0.2. Take on mind IP address must be part of caldera-net network
 
 ```sh
-# appjail makejail -f gh+alonsobsd/caldera-makejail -j caldera -- --network caldera-net --caldera_ip 10.0.0.2
+# appjail makejail -f gh+AppJail-makejails/caldera -j caldera -- --network caldera-net --caldera_ip 10.0.0.2
 ```
 When it is done you will see credentials info for connect to MITRE Caldera via web browser.
 
