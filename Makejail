@@ -1,0 +1,37 @@
+INCLUDE options/options.makejail
+
+ARG caldera_ip=10.0.0.2
+ARG network=caldera-net
+
+CMD sed -e "s|quarterly|latest|g" -i.bak /etc/pkg/FreeBSD.conf
+
+PKG caldera go base64 python3
+
+CMD chown -R caldera:caldera /usr/local/www/caldera/data
+CMD chown -R caldera:caldera /usr/local/www/caldera/plugins
+
+CMD su -m caldera -c "cd /usr/local/www/caldera/plugins/manx && setenv GOCACHE /tmp/caldera/.cache; setenv GOMODCACHE /tmp/caldera/.vendor; sh update-shells.sh"
+CMD su -m caldera -c "cd /usr/local/www/caldera/plugins/sandcat && setenv GOCACHE /tmp/caldera/.cache; setenv GOMODCACHE /tmp/caldera/.vendor; sh update-agents.sh"
+
+CMD openssl req -x509 -batch -nodes -days 365 -newkey rsa:4096 -subj "/C=PE/ST=Lima/CN=Caldera/" -out /usr/local/www/caldera/plugins/ssl/conf/certificate.pem -keyout /usr/local/www/caldera/plugins/ssl/conf/certificate.pem
+CMD chmod 600 /usr/local/www/caldera/plugins/ssl/conf/certificate.pem
+CMD chown caldera:wheel /usr/local/www/caldera/plugins/ssl/conf/certificate.pem
+
+CMD cp /usr/local/www/caldera/plugins/ssl/templates/haproxy.conf /usr/local/www/caldera/plugins/ssl/conf/haproxy.conf
+CMD sed -e "s|insecure_certificate.pem|certificate.pem|g" -i.bak /usr/local/www/caldera/plugins/ssl/conf/haproxy.conf
+
+COPY files/usr/local/www/caldera/conf/local.yml /usr/local/www/caldera/conf/local.yml
+COPY files/root/pre-caldera-init.sh /root/
+
+CMD chown root:wheel /root/pre-caldera-init.sh
+
+CMD sh /root/pre-caldera-init.sh
+CMD rm /root/pre-caldera-init.sh
+
+CMD chmod 640 /usr/local/www/caldera/conf/local.yml
+CMD chown caldera:wheel /usr/local/www/caldera/conf/local.yml
+
+SYSRC caldera_enable=YES
+SYSRC caldera_flags=
+
+SERVICE caldera start

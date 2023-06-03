@@ -1,0 +1,15 @@
+OPTION template=files/template.conf
+OPTION resolv_conf
+OPTION tzdata
+OPTION overwrite
+OPTION virtualnet=${network}:caldera address:${caldera_ip} default
+OPTION nat=network:${network}
+OPTION expose=2222:2222 network:${network} proto:tcp
+OPTION expose=7010:7010 network:${network} proto:tcp
+OPTION expose=7011:7011 network:${network} proto:udp
+OPTION expose=7012:7012 network:${network} proto:tcp
+OPTION expose=8022:8022 network:${network} proto:tcp
+OPTION expose=8443:8443 network:${network} proto:tcp
+OPTION expose=8853:8853 network:${network} proto:udp
+OPTION expose=8888:8888 network:${network} proto:tcp
+OPTION start
